@@ -4,6 +4,7 @@ namespace Edcursos\Http\Controllers;
 
 use Edcursos\Aluno;
 use Illuminate\Support\Facades\Validator;
+use Edcursos\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
