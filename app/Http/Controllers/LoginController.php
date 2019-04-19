@@ -13,17 +13,26 @@ class LoginController extends Controller
         //Verifica se o aluno preencheu o email
         if(empty($email)) {
             return [
-                'status' => 'false',
-                'message' => 'Informe o e-mail.'
+                'message' => 'false'
             ];
+
+//            return [
+//                'status' => 'false',
+//                'message' => 'Informe o e-mail.'
+//            ];
         }
 
         //Verifica se o aluno preencheu a senha
         if(empty($senha)) {
+
             return [
-                'status' => 'false',
-                'message' => 'Informe o senha.'
+                'message' => 'false'
             ];
+
+//            return [
+//                'status' => 'false',
+//                'message' => 'Informe o senha.'
+//            ];
         }
 
         //Validando o formato do email - O email deve ser um email válido
@@ -36,31 +45,45 @@ class LoginController extends Controller
         if ($validator->fails())
         {
             return [
-                'status' => 'false',
-                'message' => 'Formato de e-mail incorreto.'
+                'message' => 'false'
             ];
+
+//            return [
+//                'status' => 'false',
+//                'message' => 'Formato de e-mail incorreto.'
+//            ];
         } else {
 
             $emailCadastrado = Aluno::where('email', '=', $email)->first();
 
             if(empty($emailCadastrado)) {
+
                 return [
-                    'status' => 'false',
-                    'message' => 'E-mail nao cadastrado.'
+                    'message' => 'false'
                 ];
+
+//                return [
+//                    'status' => 'false',
+//                    'message' => 'E-mail nao cadastrado.'
+//                ];
             }
 
             $aluno = Aluno::where('email', '=', $email)->where('senha', '=', $senha)->first();
 
             if(empty($aluno)) {
+
                 return [
-                    'status' => 'false',
-                    'message' => 'Senha esta incorreta.'
+                    'message' => 'false'
                 ];
+
+//                return [
+//                    'status' => 'false',
+//                    'message' => 'Senha esta incorreta.'
+//                ];
             }
 
             return [
-                'status' => 'true'
+                'message' => 'true'
             ];
         }
 
