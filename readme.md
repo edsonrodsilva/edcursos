@@ -11,8 +11,6 @@ Instruções para execução:
 
 1 - clone o repositório
 
-git clone https://github.com/edsonrodsilva/edcursos.git
-
 2 - entre na pasta do projeto
 
 cd /edcursos
