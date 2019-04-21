@@ -4,9 +4,12 @@
 
 EDCURSOS - SISTEMA DE GESTÃO DE CURSOS
 
+Projeto do Back-End desenvovido em PHP usando o Framework Laravel 5.5.*
+Mysql 5.7.*
+
 Instruções para execução:
 
-1 - clone o repositorio
+1 - clone o repositório
 
 git clone https://github.com/edsonrodsilva/edcursos.git
 
@@ -18,6 +21,8 @@ cd /edcursos
 
 composer install
 
-4 - configurar as credenciais do banco de dados no arquivo .env 
+4 - Baixe e execute o script sql do banco de dados que esta na raiz do projeto (edcursos.sql)
+
+5 - configurar as credenciais do banco de dados no arquivo .env 
 
 :)

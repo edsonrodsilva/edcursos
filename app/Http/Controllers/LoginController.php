@@ -2,93 +2,69 @@
 
 namespace Edcursos\Http\Controllers;
 
-use Edcursos\Aluno;
+use Edcursos\Aluno; //Model Aluno
 use Illuminate\Support\Facades\Validator;
 use Edcursos\Http\Controllers\Controller;
 
+/**
+ * Class LoginController
+ * Classe responsável por altenticar um aluno
+ */
 class LoginController extends Controller
 {
+
+    /**
+     * Metodo responsável por autenticar um aluno
+     * O Aluno é autenticado apenas se retornar o status true
+     * @param null $email
+     * @param null $senha
+     * @return array
+     */
     public function autenticar($email = null, $senha = null) {
 
-        //Verifica se o aluno preencheu o email
-        if(empty($email)) {
-            return [
-                'message' => 'false'
-            ];
-
-//            return [
-//                'status' => 'false',
-//                'message' => 'Informe o e-mail.'
-//            ];
-        }
-
-        //Verifica se o aluno preencheu a senha
-        if(empty($senha)) {
-
-            return [
-                'message' => 'false'
-            ];
-
-//            return [
-//                'status' => 'false',
-//                'message' => 'Informe o senha.'
-//            ];
-        }
-
         //Validando o formato do email - O email deve ser um email válido
-        $validator = Validator::make(
-            ['email' => $email],
-            ['email' => 'email']
-        );
+        $validator = $this->validator(['email' => $email]);
 
         //Se o email não for valido informa o usuário
         if ($validator->fails())
         {
             return [
-                'message' => 'false'
+                'status' => 'false',
+                'message' => 'Formato de e-mail incorreto.'
             ];
-
-//            return [
-//                'status' => 'false',
-//                'message' => 'Formato de e-mail incorreto.'
-//            ];
         } else {
 
+            //Faz a busca no model Aluno para sertificar que o email esta cadastrado
             $emailCadastrado = Aluno::where('email', '=', $email)->first();
 
             if(empty($emailCadastrado)) {
-
                 return [
-                    'message' => 'false'
+                    'status' => 'false',
+                    'message' => 'E-mail não cadastrado.'
                 ];
-
-//                return [
-//                    'status' => 'false',
-//                    'message' => 'E-mail nao cadastrado.'
-//                ];
             }
 
+            //Verifica se o email e a senha corresponde aos dados cadastrados
             $aluno = Aluno::where('email', '=', $email)->where('senha', '=', $senha)->first();
 
             if(empty($aluno)) {
-
                 return [
-                    'message' => 'false'
+                    'status' => 'false',
+                    'message' => 'Senha está incorreta.'
                 ];
-
-//                return [
-//                    'status' => 'false',
-//                    'message' => 'Senha esta incorreta.'
-//                ];
             }
 
             return [
-                'message' => 'true'
+                'status' => 'true'
             ];
         }
-
     }
 
+    /**
+     * Valida se um e-mail está no formato correto
+     * @param array $data
+     * @return mixed
+     */
     protected function validator(array $data) {
         return Validator::make($data, [
             'email' => 'email'
